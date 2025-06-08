@@ -2073,17 +2073,41 @@ h6 {
     display: none !important;
   }
 }
-[data-theme="dark"] .footer {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
+/* Animated Hamburger Icon */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 0;
+  transition: var(--transition);
 }
-[data-theme="dark"] .footer a,
-[data-theme="dark"] .footer .logo-text {
-  color: var(--text-secondary);
+
+.nav-toggle span {
+  display: block;
+  width: 2rem;
+  height: 0.22rem;
+  margin: 0.32rem 0;
+  background: var(--primary-color);
+  border-radius: 2px;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
-[data-theme="dark"] .footer .footer-links a {
-  color: var(--text-secondary);
+
+/* Show nav-toggle on mobile */
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: flex !important;
+  }
 }
-[data-theme="dark"] .footer .footer-section h3 {
-  color: var(--text-primary);
+@media (min-width: 901px) {
+  .nav-toggle {
+    display: none !important;
+  }
 }
