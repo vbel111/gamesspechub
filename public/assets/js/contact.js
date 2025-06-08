@@ -22,3 +22,24 @@ function setupFAQToggles() {
     })
   })
 }
+// Add this function for contact form handling
+function setupContactForm() {
+  const form = document.querySelector('#contact-form')
+  if (!form) return
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    // Replace with your EmailJS service, template, and user IDs
+    emailjs.sendForm('service_g2g3c3a', 'YOUR_TEMPLATE_ID', this, 'YOUR_USER_ID')
+      .then(function () {
+        alert('Message sent! We will reply to xelpap@gmail.com.')
+        form.reset()
+      }, function (error) {
+        alert('Failed to send message. Please try again later.')
+      })
+  })
+}
+function initializeContactPage() {
+  setupFAQToggles()
+  setupContactForm() // <-- Add this line
+}
