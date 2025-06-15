@@ -1602,6 +1602,19 @@ h6 {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.875rem;
 }
+[data-theme="dark"] .footer {
+  background: #181a1b;
+  color: #f1f1f1;
+}
+[data-theme="dark"] .footer-section h3,
+[data-theme="dark"] .footer-section p,
+[data-theme="dark"] .footer-links a,
+[data-theme="dark"] .footer-bottom {
+  color: #f1f1f1;
+}
+[data-theme="dark"] .footer-links a:hover {
+  color: #b3e5fc;
+}
 
 /* Modal */
 .modal-overlay {

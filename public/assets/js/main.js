@@ -65,8 +65,10 @@ function setupEventListeners() {
 
   // Search functionality
   if (elements.searchInput) {
-    elements.searchInput.addEventListener("input", debounce(handleSearch, 300))
-  }
+  elements.searchInput.addEventListener("input", debounce(function(e) {
+    handleSearch(e.target.value);
+  }, 300));
+}
 
   // Modal close on outside click
   if (elements.gameModal) {
