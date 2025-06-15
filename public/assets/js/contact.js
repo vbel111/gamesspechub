@@ -14,8 +14,14 @@ function setupFAQToggles() {
   // Set initial state - hide all answers
   questions.forEach((question) => {
     const answer = question.nextElementSibling
+    const toggle = question.querySelector('.faq-toggle')
     if (answer) {
       answer.style.display = 'none'
+      answer.style.maxHeight = '0'
+      answer.style.transition = 'max-height 0.3s ease-out'
+    }
+    if (toggle) {
+      toggle.textContent = '+'
     }
   })
 
@@ -26,13 +32,19 @@ function setupFAQToggles() {
       
       // Toggle the answer visibility with smooth animation
       const answer = this.nextElementSibling
+      const toggle = this.querySelector('.faq-toggle')
+      
       if (answer) {
         if (answer.style.display === 'block') {
-          answer.style.display = 'none'
           answer.style.maxHeight = '0'
+          setTimeout(() => {
+            answer.style.display = 'none'
+          }, 300)
+          if (toggle) toggle.textContent = '+'
         } else {
           answer.style.display = 'block'
           answer.style.maxHeight = answer.scrollHeight + 'px'
+          if (toggle) toggle.textContent = '−'
         }
       }
     })

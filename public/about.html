@@ -3,17 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - GameSpecsHub</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>About GameSpecsHub - Your Ultimate Game System Requirements Guide</title>
+    <meta name="description" content="Learn about GameSpecsHub's mission to help gamers find the perfect games for their systems. Discover our story, team, and commitment to accurate system requirements.">
+    <meta name="keywords" content="about GameSpecsHub, game system requirements, gaming community, PC gaming help, game compatibility">
+    <meta name="author" content="GameSpecsHub">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="About GameSpecsHub - Your Ultimate Game System Requirements Guide">
+    <meta property="og:description" content="Learn about GameSpecsHub's mission to help gamers find the perfect games for their systems. Discover our story, team, and commitment to accurate system requirements.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gamespecshub.com/about">
+    <meta property="og:image" content="https://gamespecshub.com/assets/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About GameSpecsHub - Your Ultimate Game System Requirements Guide">
+    <meta name="twitter:description" content="Learn about GameSpecsHub's mission to help gamers find the perfect games for their systems. Discover our story, team, and commitment to accurate system requirements.">
+    <meta name="twitter:image" content="https://gamespecshub.com/assets/images/og-image.jpg">
+    <link rel="canonical" href="https://gamespecshub.com/about">
+    <meta name="google-adsense-account" content="ca-pub-7194731936773317">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/images/favicon.svg">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Structured Data for About Page -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About GameSpecsHub",
+        "description": "GameSpecsHub helps gamers find the perfect games for their systems by providing accurate system requirements and performance data.",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "GameSpecsHub",
+            "description": "Your ultimate destination for finding games that match your system specifications.",
+            "foundingDate": "2024",
+            "founder": {
+                "@type": "Person",
+                "name": "Elvis"
+            },
+            "sameAs": [
+                "https://twitter.com/GameSpecsHub",
+                "https://www.facebook.com/GameSpecsHub"
+            ]
+        }
+    }
+    </script>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-icon">🎮</span>
+            <a href="index.html" class="nav-logo" aria-label="GameSpecsHub Home">
+                <span class="logo-icon" aria-hidden="true">🎮</span>
                 <span class="logo-text">GameSpecsHub</span>
             </a>
             
@@ -21,262 +59,171 @@
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="categories.html" class="nav-link">Categories</a>
                 <a href="low-spec.html" class="nav-link">Low-Spec Games</a>
-                <a href="about.html" class="nav-link active">About</a>
+                <a href="about.html" class="nav-link active" aria-current="page">About</a>
                 <a href="contact.html" class="nav-link">Contact</a>
                 <a href="blog.html" class="nav-link">Blog</a>
             </div>
             
             <div class="nav-actions">
-                <button class="search-btn" onclick="toggleSearch()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button class="search-btn" onclick="toggleSearch()" aria-label="Search games">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
                     </svg>
                 </button>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <circle cx="12" cy="12" r="5"></circle>
                         <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
                     </svg>
                 </button>
-                <button class="nav-toggle" aria-label="Open navigation">
-                <span class="nav-icon"></span>
-                <span class="nav-icon"></span>
-                <span class="nav-icon"></span>
-            </button>
+                <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+                    <span class="nav-icon"></span>
+                    <span class="nav-icon"></span>
+                    <span class="nav-icon"></span>
+                </button>
             </div>
         </div>
         
         <!-- Search Overlay -->
-        <div class="search-overlay" id="search-overlay">
+        <div class="search-overlay" id="search-overlay" role="search" aria-label="Search games">
             <div class="search-container">
-                <input type="text" placeholder="Search games..." class="search-input" id="search-input">
-                <button class="search-close" onclick="toggleSearch()">×</button>
+                <input type="text" placeholder="Search games..." class="search-input" id="search-input" aria-label="Search games">
+                <button class="search-close" onclick="toggleSearch()" aria-label="Close search">×</button>
             </div>
-            <div class="search-results" id="search-results"></div>
+            <div class="search-results" id="search-results" aria-live="polite"></div>
         </div>
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header about-header">
+    <header class="page-header about-header" role="banner">
         <div class="container">
             <div class="page-header-content">
                 <h1>About GameSpecsHub</h1>
-                <p>Your trusted companion for finding games that run perfectly on your system</p>
-                <nav class="breadcrumb">
-                    <a href="index.html">Home</a>
-                    <span>/</span>
-                    <span>About</span>
+                <p>Your ultimate destination for finding games that match your system specifications.</p>
+                <nav class="breadcrumb" aria-label="breadcrumb">
+                    <ol>
+                        <li><a href="index.html">Home</a></li>
+                        <li aria-current="page">About</li>
+                    </ol>
                 </nav>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Mission Section -->
-    <section class="mission-section">
-        <div class="container">
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h2>Our Mission</h2>
-                    <p>At GameSpecsHub, we believe that everyone deserves to enjoy great games, regardless of their hardware limitations. Our mission is to bridge the gap between gamers and the perfect games for their systems.</p>
-                    <p>We understand the frustration of buying a game only to find out it doesn't run well on your computer. That's why we've created a comprehensive platform that helps you discover games that will provide the best experience on your specific hardware.</p>
-                    <div class="mission-stats">
-                        <div class="stat">
-                            <span class="stat-number">10,000+</span>
-                            <span class="stat-label">Games Analyzed</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">1M+</span>
-                            <span class="stat-label">Happy Users</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Game Categories</span>
-                        </div>
+    <!-- Main Content -->
+    <main>
+        <!-- Our Story Section -->
+        <section class="about-section" aria-labelledby="story-heading">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 id="story-heading">Our Story</h2>
+                        <p>GameSpecsHub was born from a simple idea: to help gamers find the perfect games for their systems without the frustration of compatibility issues. We understand that not everyone has a high-end gaming PC, and that's perfectly okay!</p>
+                        <p>Our mission is to provide accurate, up-to-date system requirements and performance data for thousands of games, helping you make informed decisions about which games to play.</p>
                     </div>
-                </div>
-                <div class="mission-image">
-                    <div class="image-placeholder">
-                        <span class="placeholder-icon">🎮</span>
-                        <p>Gaming for Everyone</p>
+                    <div class="about-image">
+                        <img src="assets/images/about-story.jpg" alt="GameSpecsHub team working on system requirements" loading="lazy">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section class="about-features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What Makes Us Different</h2>
-                <p class="section-description">We go beyond simple system requirements</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Detailed Analysis</h3>
-                    <p>We analyze not just minimum requirements, but real-world performance across different hardware configurations.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Smart Recommendations</h3>
-                    <p>Our algorithm considers your system specs, gaming preferences, and performance expectations to suggest perfect matches.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Real User Data</h3>
-                    <p>We collect performance data from real users to provide accurate expectations for how games will run.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Always Updated</h3>
-                    <p>Our database is constantly updated with new games, patches, and optimization improvements.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛠️</div>
-                    <h3>Optimization Tips</h3>
-                    <p>Get specific recommendations on settings and tweaks to improve performance for your hardware.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
-                    <h3>Community Driven</h3>
-                    <p>Join a community of gamers sharing experiences, tips, and recommendations for better gaming.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Meet Our Team</h2>
-                <p class="section-description">Passionate gamers and developers working to improve your gaming experience</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-avatar">👨‍💻</div>
-                    <h3>Elvis A.B Osei</h3>
-                    <p class="member-role">Founder & CEO</p>
-                    <p class="member-bio">Computer Engineering UnderGrad & a Passionate Gamer. Started GameSpecsHub after trying to share lowend gaming tips on Youtube.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">👩‍🔬</div>
-                    <h3>Kevin Johnson</h3>
-                    <p class="member-role">Co-Founder</p>
-                    <p class="member-bio"></p>
+        <!-- Our Values Section -->
+        <section class="values-section" aria-labelledby="values-heading">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="values-heading" class="section-title">Our Values</h2>
+                    <p class="section-description">What drives us to provide the best service</p>
                 </div>
                 
-            </div>
-        </div>
-    </section>
-
-    <!-- Technology Section -->
-    <section class="technology-section">
-        <div class="container">
-            <div class="tech-content">
-                <div class="tech-text">
-                    <h2>GamesSpecHub was built with fundamental knowledge in HTML, CSS and Java Script</h2>
-                    <p>GameSpecsHub uses an Api  to provide accurate game recommendations and system analysis.</p>
-                    <ul class="tech-list">
-                        <li>
-                            <strong>RAWG API Integration:</strong> Access to comprehensive game database with real-time updates
-                        </li>
-                        <li>
-                            <strong>Machine Learning:</strong> Smart algorithms that learn from user feedback and performance data
-                        </li>
-                        <li>
-                            <strong>Cloud Computing:</strong> Scalable infrastructure ensuring fast and reliable service
-                        </li>
-                        <li>
-                            <strong>Real-time Analytics:</strong> Continuous monitoring and optimization of recommendations
-                        </li>
-                    </ul>
+                <div class="values-grid">
+                    <article class="value-card">
+                        <div class="value-icon" aria-hidden="true">🎯</div>
+                        <h3>Accuracy</h3>
+                        <p>We verify all system requirements through multiple sources to ensure accuracy.</p>
+                    </article>
+                    
+                    <article class="value-card">
+                        <div class="value-icon" aria-hidden="true">🔄</div>
+                        <h3>Timeliness</h3>
+                        <p>Regular updates to keep you informed about the latest games and changes.</p>
+                    </article>
+                    
+                    <article class="value-card">
+                        <div class="value-icon" aria-hidden="true">🤝</div>
+                        <h3>Community</h3>
+                        <p>We value our community's input and continuously improve based on feedback.</p>
+                    </article>
+                    
+                    <article class="value-card">
+                        <div class="value-icon" aria-hidden="true">💡</div>
+                        <h3>Innovation</h3>
+                        <p>Constantly evolving our platform to better serve the gaming community.</p>
+                    </article>
                 </div>
-                <div class="tech-visual">
-                    <div class="tech-stack">
-                        <div class="tech-item">🔗 RAWG API</div>
-                        <div class="tech-item">🤖 Machine Learning</div>
-                        <div class="tech-item">☁️ Cloud Infrastructure</div>
-                        <div class="tech-item">📊 Real-time Analytics</div>
-                        <div class="tech-item">🔒 Secure & Private</div>
-                        <div class="tech-item">⚡ Lightning Fast</div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section" aria-labelledby="team-heading">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="team-heading" class="section-title">Our Team</h2>
+                    <p class="section-description">The passionate people behind GameSpecsHub</p>
+                </div>
+                
+                <div class="team-grid">
+                    <article class="team-member">
+                        <img src="assets/images/team/elvis.jpg" alt="Elvis - Founder" loading="lazy">
+                        <h3>Elvis</h3>
+                        <p class="role">Founder & Lead Developer</p>
+                        <p class="bio">Passionate about gaming and technology, Elvis created GameSpecsHub to help gamers find the perfect games for their systems.</p>
+                    </article>
+                    
+                    <!-- Add more team members as needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Us Section -->
+        <section class="join-section" aria-labelledby="join-heading">
+            <div class="container">
+                <div class="join-content">
+                    <h2 id="join-heading">Join Our Community</h2>
+                    <p>Be part of our growing community of gamers and help others find their perfect games.</p>
+                    <div class="join-actions">
+                        <a href="contact.html" class="btn btn-primary">Contact Us</a>
+                        <a href="#" class="btn btn-outline">Follow on Social Media</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Values Section -->
-    <section class="values-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Values</h2>
-                <p class="section-description">The principles that guide everything we do</p>
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">🎮</div>
-                    <h3>Gaming for All</h3>
-                    <p>We believe great gaming experiences shouldn't be limited by hardware. Everyone deserves to play amazing games.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🔍</div>
-                    <h3>Transparency</h3>
-                    <p>We provide clear, honest information about game performance and system requirements without hidden agendas.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🚀</div>
-                    <h3>Innovation</h3>
-                    <p>We continuously improve our platform with new features and technologies to better serve our community.</p>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🤝</div>
-                    <h3>Community</h3>
-                    <p>Our users are at the heart of everything we do. We listen, learn, and build based on community feedback.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="about-cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Find Your Perfect Games?</h2>
-                <p>Join thousands of gamers who have discovered amazing games that run perfectly on their systems.</p>
-                <div class="cta-actions">
-                    <a href="index.html" class="btn btn-primary">Start Exploring</a>
-                    <a href="contact.html" class="btn btn-outline">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <span class="logo-icon">🎮</span>
+                        <span class="logo-icon" aria-hidden="true">🎮</span>
                         <span class="logo-text">GameSpecsHub</span>
                     </div>
                     <p>Your ultimate destination for finding games that match your system specifications.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <a href="#" class="social-link" aria-label="Follow us on Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <a href="#" class="social-link" aria-label="Follow us on Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <a href="#" class="social-link" aria-label="Follow us on Pinterest">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
                             </svg>
                         </a>
@@ -315,13 +262,13 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 GameSpecsHub. All rights reserved. Powered by RAWG API. built w love by elvis</p>
+                <p>&copy; 2024 GameSpecsHub. All rights reserved. Built with ❤️ by Elvis. Powered by RAWG API.</p>
             </div>
         </div>
     </footer>
 
     <!-- Toast Notifications -->
-    <div class="toast-container" id="toast-container"></div>
+    <div class="toast-container" id="toast-container" role="alert" aria-live="polite"></div>
 
     <script src="assets/js/main.js"></script>
 </body>
