@@ -3,26 +3,43 @@ document.addEventListener("DOMContentLoaded", initializeContactPage)
 
 function initializeContactPage() {
   setupFAQToggles()
+  setupContactForm()
 }
 
 function setupFAQToggles() {
-  // Select all FAQ question elements (adjust selector as needed)
+  // Select all FAQ question elements
   const questions = document.querySelectorAll('.faq-question')
   if (!questions.length) return
+
+  // Set initial state - hide all answers
+  questions.forEach((question) => {
+    const answer = question.nextElementSibling
+    if (answer) {
+      answer.style.display = 'none'
+    }
+  })
 
   questions.forEach((question) => {
     question.addEventListener('click', function () {
       // Toggle the 'active' class for styling
       this.classList.toggle('active')
-      // Toggle the answer visibility (assumes answer is next sibling)
+      
+      // Toggle the answer visibility with smooth animation
       const answer = this.nextElementSibling
       if (answer) {
-        answer.style.display = answer.style.display === 'block' ? 'none' : 'block'
+        if (answer.style.display === 'block') {
+          answer.style.display = 'none'
+          answer.style.maxHeight = '0'
+        } else {
+          answer.style.display = 'block'
+          answer.style.maxHeight = answer.scrollHeight + 'px'
+        }
       }
     })
   })
 }
-// Add this function for contact form handling
+
+// Contact form handling
 function setupContactForm() {
   const form = document.querySelector('#contact-form')
   if (!form) return
@@ -38,8 +55,4 @@ function setupContactForm() {
         alert('Failed to send message. Please try again later.')
       })
   })
-}
-function initializeContactPage() {
-  setupFAQToggles()
-  setupContactForm() // <-- Add this line
 }
