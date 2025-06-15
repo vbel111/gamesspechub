@@ -430,66 +430,40 @@ function clearFilters() {
 }
 
 // Search Functions
-async function handleSearch(event) {
-  const query = event.target.value.trim()
-  const searchResults = document.getElementById("search-results")
-  
-  if (!searchResults) return
-  
-  if (!query) {
-    searchResults.innerHTML = ""
+async function handleSearch(query) {
+  if (!query.trim()) {
+    const searchResults = document.getElementById("search-results")
+    if (searchResults) searchResults.innerHTML = ""
     return
   }
 
   try {
-    showLoading(true)
     const response = await fetch(
-      `${CONFIG.BASE_URL}/games?key=${CONFIG.API_KEY}&search=${encodeURIComponent(query)}&page_size=5&ordering=-rating`,
+      `${CONFIG.BASE_URL}/games?key=${CONFIG.API_KEY}&search=${encodeURIComponent(query)}&page_size=5`,
     )
 
     if (!response.ok) throw new Error("Search failed")
     const data = await response.json()
 
-    if (data.results.length === 0) {
-      searchResults.innerHTML = `
-        <div class="no-results">
-          <p>No games found for "${query}"</p>
-          <p class="text-muted">Try a different search term</p>
-        </div>
-      `
-      return
-    }
-
     const resultsHTML = data.results
       .map(
         (game) => `
-          <div class="search-result-item" onclick="openGameModal(${game.id}); toggleSearch();">
-            <img src="${game.background_image || "/placeholder.svg?height=50&width=50"}" 
-                 alt="${game.name}"
-                 onerror="this.src='/placeholder.svg?height=50&width=50'">
-            <div class="search-result-content">
-              <h4>${game.name}</h4>
-              <p>${game.genres.map((g) => g.name).join(", ") || "Various"}</p>
-              <div class="search-result-rating">
-                <span class="rating-stars">${generateStars(game.rating || 0)}</span>
-                <span class="rating-score">${(game.rating || 0).toFixed(1)}</span>
-              </div>
+            <div class="search-result-item" onclick="openGameModal(${game.id}); toggleSearch();">
+                <img src="${game.background_image || "/placeholder.svg?height=50&width=50"}" alt="${game.name}">
+                <div>
+                    <h4>${game.name}</h4>
+                    <p>${game.genres.map((g) => g.name).join(", ")}</p>
+                </div>
             </div>
-          </div>
         `,
       )
       .join("")
 
-    searchResults.innerHTML = resultsHTML
+    const searchResults = document.getElementById("search-results")
+    if (searchResults) searchResults.innerHTML = resultsHTML
   } catch (error) {
     console.error("Search error:", error)
-    searchResults.innerHTML = `
-      <div class="error-message">
-        <p>Failed to search games. Please try again.</p>
-      </div>
-    `
-  } finally {
-    showLoading(false)
+    showError("Search failed. Please try again.")
   }
 }
 
