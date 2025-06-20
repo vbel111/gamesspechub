@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - GameSpecsHub</title>
+  <style>
+    body { font-family: Arial; background: #111; color: #eee; max-width: 800px; margin: 0 auto; padding: 20px; }
+    input, textarea { width: 100%; margin-bottom: 10px; padding: 10px; background: #222; color: #fff; border: none; }
+    button { padding: 10px 20px; background: #ff5c8d; color: white; border: none; cursor: pointer; }
+    .token-box { background: #222; padding: 10px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>✍️ Post a New Blog</h1>
+  
+  <div class="token-box">
+    <p>Paste your GitHub token below (won’t be stored):</p>
+    <input type="password" id="token" placeholder="GitHub token">
+  </div>
+
+  <input type="text" id="title" placeholder="Blog Title">
+  <input type="date" id="date">
+  <textarea id="content" rows="10" placeholder="Blog content..."></textarea>
+  <button onclick="submitBlog()">Submit Blog</button>
+
+  <p id="msg"></p>
+
+  <script>
+    async function submitBlog() {
+      const token = document.getElementById('token').value;
+      const title = document.getElementById('title').value;
+      const date = document.getElementById('date').value;
+      const content = document.getElementById('content').value;
+      const msg = document.getElementById('msg');
+
+      if (!token || !title || !date || !content) {
+        msg.textContent = "Please fill all fields.";
+        return;
+      }
+
+      const repoOwner = "vbel111";
+      const repoName = "gamesspechub";
+      const filePath = "blogs/blogs.json";
+
+      const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+      // 1. Fetch current blogs
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: "application/vnd.github.v3+json"
+        }
+      });
+
+      const data = await res.json();
+      const existingContent = atob(data.content);
+      const blogs = JSON.parse(existingContent);
+
+      // 2. Add new blog at the top
+      blogs.unshift({ title, date, content });
+
+      // 3. Update the file on GitHub
+      const updatedContent = btoa(JSON.stringify(blogs, null, 2));
+
+      const updateRes = await fetch(url, {
+        method: "PUT",
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: "application/vnd.github.v3+json"
+        },
+        body: JSON.stringify({
+          message: `Add blog post: ${title}`,
+          content: updatedContent,
+          sha: data.sha
+        })
+      });
+
+      if (updateRes.ok) {
+        msg.textContent = "✅ Blog posted successfully!";
+        document.getElementById("title").value = "";
+        document.getElementById("date").value = "";
+        document.getElementById("content").value = "";
+      } else {
+        msg.textContent = "❌ Failed to post. Check your token or repo settings.";
+      }
+    }
+  </script>
+</body>
+</html>
