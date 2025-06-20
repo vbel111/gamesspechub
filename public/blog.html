@@ -5,91 +5,359 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GameSpecsHub Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
   <script src="assets/js/marked.min.js"></script>
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f9fafb;
-      margin: 0;
-      padding: 20px;
-      color: #222;
+    /* Blog-specific styles */
+    .blog-container {
+      margin-top: 4rem;
+      padding: 2rem 0;
     }
-    h1 {
+    .blog-header {
       text-align: center;
-      color: #00bcd4;
+      margin-bottom: 3rem;
+    }
+    .blog-header h1 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+    }
+    .blog-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 15px;
+      margin-bottom: 30px;
     }
     .search-input, .tag-filter {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    .search-input:focus, .tag-filter:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
     .post {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      background: var(--bg-primary);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 25px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border-color);
+    }
+    .post:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
     }
     .post h2 {
-      margin: 0;
-      color: #00bcd4;
+      margin: 0 0 10px 0;
+      color: var(--primary-color);
+      font-size: 1.5em;
     }
     .post small {
-      color: #777;
+      color: var(--text-secondary);
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 0.9em;
     }
     .tag {
       display: inline-block;
-      background: #e0f7fa;
-      color: #007c91;
-      padding: 3px 10px;
-      margin-right: 6px;
-      border-radius: 4px;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary-color);
+      padding: 4px 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      border-radius: 20px;
       font-size: 0.8em;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .tag:hover {
+      background: rgba(99, 102, 241, 0.2);
     }
     .read-more {
-      color: #00bcd4;
+      color: var(--primary-color);
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 15px;
+      text-decoration: none;
+    }
+    .read-more:hover {
+      text-decoration: underline;
     }
     .pagination {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-top: 30px;
+      margin-top: 40px;
     }
     .pagination button {
-      padding: 8px 16px;
-      background: #00bcd4;
+      padding: 10px 20px;
+      background: var(--primary-color);
       border: none;
       color: white;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: var(--primary-dark);
     }
     .pagination button:disabled {
-      background: #ccc;
+      background: var(--text-muted);
       cursor: not-allowed;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border: 1px solid #f5c6cb;
+    }
+    .no-posts {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .post-date {
+      color: var(--text-secondary);
+      font-size: 0.9em;
+    }
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .post-content {
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+    .post-content h1, .post-content h2, .post-content h3 {
+      color: var(--primary-color);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .post-content p {
+      margin-bottom: 15px;
+    }
+    .post-content ul, .post-content ol {
+      margin-bottom: 15px;
+      padding-left: 20px;
+    }
+    .post-content code {
+      background: var(--bg-tertiary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .post-content pre {
+      background: var(--bg-tertiary);
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    .post-content blockquote {
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+      margin: 15px 0;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    @media (max-width: 768px) {
+      .filters {
+        grid-template-columns: 1fr;
+      }
+      .post {
+        padding: 20px;
+      }
+      .blog-header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>📰 GameSpecsHub Blog</h1>
-  <input type="text" id="searchInput" class="search-input" placeholder="Search blog posts...">
-  <select id="tagFilter" class="tag-filter">
-    <option value="">Filter by tag</option>
-  </select>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🎮</span>
+        <span class="logo-text">GameSpecsHub</span>
+      </a>
+      
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="categories.html" class="nav-link">Categories</a>
+        <a href="low-spec.html" class="nav-link">Low-Spec Games</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+      </div>
+      
+      <div class="nav-actions">
+        <button class="search-btn" onclick="toggleSearch()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+        </button>
+        <button class="nav-toggle" aria-label="Open navigation">
+          <span class="nav-icon"></span>
+          <span class="nav-icon"></span>
+          <span class="nav-icon"></span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+      <div class="search-container">
+        <input type="text" placeholder="Search games..." class="search-input" id="search-input">
+        <button class="search-close" onclick="toggleSearch()">×</button>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </nav>
 
-  <div id="blogContainer"></div>
+  <div class="blog-container">
+    <div class="container">
+      <div class="blog-header">
+        <h1>📰 GameSpecsHub Blog</h1>
+        <p>Latest gaming news, reviews, and insights from the GameSpecsHub team</p>
+      </div>
+      
+      <div class="filters">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search blog posts...">
+        <select id="tagFilter" class="tag-filter">
+          <option value="">All Tags</option>
+        </select>
+      </div>
 
-  <div class="pagination">
-    <button id="prevBtn">← Previous</button>
-    <button id="nextBtn">Next →</button>
+      <div id="blogContainer">
+        <div class="loading">Loading posts...</div>
+      </div>
+
+      <div class="pagination">
+        <button id="prevBtn">← Previous</button>
+        <button id="nextBtn">Next →</button>
+      </div>
+    </div>
   </div>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-content">
+        <h2>Stay Updated</h2>
+        <p>Get notified about new games and features</p>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <span class="logo-icon">🎮</span>
+            <span class="logo-text">GameSpecsHub</span>
+          </div>
+          <p>Your ultimate destination for finding games that match your system specifications.</p>
+          <div class="social-links">
+            <a href="#" class="social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+              </svg>
+            </a>
+            <a href="#" class="social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="low-spec.html">Low-Spec Games</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Categories</h3>
+          <ul class="footer-links">
+            <li><a href="categories.html?genre=action">Action</a></li>
+            <li><a href="categories.html?genre=strategy">Strategy</a></li>
+            <li><a href="categories.html?genre=racing">Racing</a></li>
+            <li><a href="categories.html?genre=puzzle">Puzzle</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Support</h3>
+          <ul class="footer-links">
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#privacy">Privacy Policy</a></li>
+            <li><a href="#terms">Terms of Service</a></li>
+            <li><a href="#help">Help Center</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 GameSpecsHub. All rights reserved. Built w love by elvis | Powered by RAWG API.</p>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const postsPerPage = 5;
@@ -104,18 +372,54 @@
     const nextBtn = document.getElementById('nextBtn');
 
     async function fetchPosts() {
-      const res = await fetch('https://raw.githubusercontent.com/vbel111/gamesspechub/main/blogs/blogs.json');
-      const data = await res.json();
-      allPosts = data;
-      filteredPosts = [...allPosts];
-      populateTags();
-      renderPosts();
+      try {
+        blogContainer.innerHTML = '<div class="loading">Loading posts...</div>';
+        
+        const res = await fetch('https://raw.githubusercontent.com/vbel111/gamesspechub/main/public/blog/blogs.json');
+        
+        if (!res.ok) {
+          throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
+        }
+        
+        const data = await res.json();
+        
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid data format received');
+        }
+        
+        allPosts = data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date, newest first
+        filteredPosts = [...allPosts];
+        
+        populateTags();
+        renderPosts();
+        
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        blogContainer.innerHTML = `
+          <div class="error">
+            <strong>Error loading blog posts:</strong><br>
+            ${error.message}<br><br>
+            Please try refreshing the page or check back later.
+          </div>
+        `;
+      }
     }
 
     function populateTags() {
       const tags = new Set();
-      allPosts.forEach(p => p.tags.forEach(tag => tags.add(tag)));
-      tags.forEach(tag => {
+      allPosts.forEach(post => {
+        if (post.tags && Array.isArray(post.tags)) {
+          post.tags.forEach(tag => tags.add(tag));
+        }
+      });
+      
+      // Clear existing options except the first one
+      while (tagFilter.children.length > 1) {
+        tagFilter.removeChild(tagFilter.lastChild);
+      }
+      
+      // Add tag options
+      Array.from(tags).sort().forEach(tag => {
         const opt = document.createElement('option');
         opt.value = tag;
         opt.textContent = tag;
@@ -125,12 +429,13 @@
 
     function renderPosts() {
       blogContainer.innerHTML = '';
+      
       const start = (currentPage - 1) * postsPerPage;
       const end = start + postsPerPage;
       const postsToShow = filteredPosts.slice(start, end);
 
       if (postsToShow.length === 0) {
-        blogContainer.innerHTML = '<p>No posts found.</p>';
+        blogContainer.innerHTML = '<div class="no-posts">No posts found matching your criteria.</div>';
         return;
       }
 
@@ -138,33 +443,53 @@
         const div = document.createElement('div');
         div.className = 'post';
 
-        const tagsHtml = post.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ');
+        // Ensure tags exist and are an array
+        const tags = post.tags && Array.isArray(post.tags) ? post.tags : [];
+        const tagsHtml = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+        
+        // Create preview content
         const preview = post.content.length > 300 
             ? post.content.slice(0, 300) + '...'
             : post.content;
 
+        // Format date
+        const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
         div.innerHTML = `
           <h2>${post.title}</h2>
-          <small>${post.date}</small>
-          ${tagsHtml}
-          <div class="preview-text">${marked.parse(preview)}</div>
+          <div class="post-meta">
+            <span class="post-date">📅 ${formattedDate}</span>
+            ${tags.length > 0 ? `<div class="post-tags">${tagsHtml}</div>` : ''}
+          </div>
+          <div class="post-content">
+            ${marked.parse(preview)}
+          </div>
           ${post.content.length > 300 ? '<span class="read-more">Read more</span>' : ''}
-          <div class="full-text" style="display:none">${marked.parse(post.content)}</div>
-          <a href="post.html?id=${post.id}">Read full post →</a>
+          <div class="full-content" style="display:none">
+            ${marked.parse(post.content)}
+          </div>
+          <a href="post.html?id=${post.id}" class="read-more">Read full post →</a>
         `;
 
+        // Add read more functionality
         const readMoreBtn = div.querySelector('.read-more');
-        if (readMoreBtn) {
-          readMoreBtn.addEventListener('click', () => {
-            const fullText = div.querySelector('.full-text');
-            const previewText = div.querySelector('.preview-text');
-            if (fullText.style.display === 'none') {
-              fullText.style.display = 'block';
-              previewText.style.display = 'none';
+        if (readMoreBtn && post.content.length > 300) {
+          readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const fullContent = div.querySelector('.full-content');
+            const previewContent = div.querySelector('.post-content');
+            
+            if (fullContent.style.display === 'none') {
+              fullContent.style.display = 'block';
+              previewContent.style.display = 'none';
               readMoreBtn.textContent = 'Read less';
             } else {
-              fullText.style.display = 'none';
-              previewText.style.display = 'block';
+              fullContent.style.display = 'none';
+              previewContent.style.display = 'block';
               readMoreBtn.textContent = 'Read more';
             }
           });
@@ -173,14 +498,17 @@
         blogContainer.appendChild(div);
       });
 
+      // Update pagination
       prevBtn.disabled = currentPage === 1;
       nextBtn.disabled = end >= filteredPosts.length;
     }
 
+    // Event listeners
     prevBtn.addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
         renderPosts();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
 
@@ -188,6 +516,7 @@
       if ((currentPage * postsPerPage) < filteredPosts.length) {
         currentPage++;
         renderPosts();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
 
@@ -195,7 +524,8 @@
       const query = searchInput.value.toLowerCase();
       filteredPosts = allPosts.filter(post =>
         post.title.toLowerCase().includes(query) ||
-        post.content.toLowerCase().includes(query)
+        post.content.toLowerCase().includes(query) ||
+        (post.tags && post.tags.some(tag => tag.toLowerCase().includes(query)))
       );
       currentPage = 1;
       renderPosts();
@@ -204,7 +534,9 @@
     tagFilter.addEventListener('change', () => {
       const selected = tagFilter.value;
       if (selected) {
-        filteredPosts = allPosts.filter(p => p.tags.includes(selected));
+        filteredPosts = allPosts.filter(p => 
+          p.tags && Array.isArray(p.tags) && p.tags.includes(selected)
+        );
       } else {
         filteredPosts = [...allPosts];
       }
@@ -212,7 +544,43 @@
       renderPosts();
     });
 
+    // Navigation functions
+    function toggleSearch() {
+      const overlay = document.getElementById('search-overlay');
+      overlay.classList.toggle('active');
+      if (overlay.classList.contains('active')) {
+        document.getElementById('search-input').focus();
+      }
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Newsletter subscription
+    function subscribeNewsletter(event) {
+      event.preventDefault();
+      const email = event.target.querySelector('input[type="email"]').value;
+      // Add your newsletter subscription logic here
+      alert('Thank you for subscribing!');
+      event.target.reset();
+    }
+
+    // Mobile navigation
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      document.getElementById('nav-menu').classList.toggle('active');
+    });
+
+    // Initialize
     fetchPosts();
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
   </script>
 </body>
 </html>
