@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GameSpecsHub Blog</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script src="assets/js/marked.min.js"></script>
   <style>
@@ -16,168 +16,153 @@
     .blog-header {
       text-align: center;
       margin-bottom: 3rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      color: white;
+      margin-bottom: 3rem;
     }
     .blog-header h1 {
-      color: var(--primary-color);
       margin-bottom: 1rem;
-      font-size: 2.5rem;
+      font-size: 3rem;
+      font-weight: 700;
     }
     .blog-header p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
     }
     .filters {
       display: grid;
       grid-template-columns: 1fr 200px;
       gap: 15px;
       margin-bottom: 30px;
+      background: var(--bg-primary);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
     }
     .search-input, .tag-filter {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
       border-radius: 8px;
       font-size: 16px;
       box-sizing: border-box;
-      background: var(--bg-primary);
+      background: var(--bg-secondary);
       color: var(--text-primary);
+      transition: all 0.3s ease;
     }
     .search-input:focus, .tag-filter:focus {
       outline: none;
       border-color: var(--primary-color);
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      background: var(--bg-primary);
     }
+    
+    /* Enhanced Post Cards */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    
     .post {
       background: var(--bg-primary);
-      padding: 25px;
-      border-radius: 12px;
+      border-radius: 16px;
       box-shadow: var(--shadow-md);
-      margin-bottom: 25px;
-      transition: transform 0.2s, box-shadow 0.2s;
       border: 1px solid var(--border-color);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
     }
     .post:hover {
-      transform: translateY(-2px);
+      transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
+      border-color: var(--primary-color);
     }
+    
+    .post-header {
+      padding: 25px 25px 15px 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
     .post h2 {
-      margin: 0 0 10px 0;
+      margin: 0 0 15px 0;
       color: var(--primary-color);
-      font-size: 1.5em;
-    }
-    .post small {
-      color: var(--text-secondary);
-      display: block;
-      margin-bottom: 15px;
-      font-size: 0.9em;
-    }
-    .tag {
-      display: inline-block;
-      background: rgba(99, 102, 241, 0.1);
-      color: var(--primary-color);
-      padding: 4px 12px;
-      margin-right: 8px;
-      margin-bottom: 8px;
-      border-radius: 20px;
-      font-size: 0.8em;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-    .tag:hover {
-      background: rgba(99, 102, 241, 0.2);
-    }
-    .read-more {
-      color: var(--primary-color);
-      cursor: pointer;
+      font-size: 1.4em;
       font-weight: 600;
-      display: inline-block;
-      margin-top: 15px;
-      text-decoration: none;
+      line-height: 1.3;
     }
-    .read-more:hover {
-      text-decoration: underline;
-    }
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 40px;
-    }
-    .pagination button {
-      padding: 10px 20px;
-      background: var(--primary-color);
-      border: none;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-    .pagination button:hover:not(:disabled) {
-      background: var(--primary-dark);
-    }
-    .pagination button:disabled {
-      background: var(--text-muted);
-      cursor: not-allowed;
-    }
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-secondary);
-    }
-    .error {
-      background: #f8d7da;
-      color: #721c24;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border: 1px solid #f5c6cb;
-    }
-    .no-posts {
-      text-align: center;
-      padding: 40px;
-      color: var(--text-secondary);
-      font-style: italic;
-    }
+    
     .post-meta {
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin-bottom: 15px;
+      justify-content: space-between;
       flex-wrap: wrap;
+      gap: 10px;
     }
+    
     .post-date {
       color: var(--text-secondary);
       font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
+    
     .post-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
     }
+    
+    .tag {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75em;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    .tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+    
     .post-content {
+      padding: 20px 25px;
       line-height: 1.6;
       color: var(--text-primary);
     }
+    
     .post-content h1, .post-content h2, .post-content h3 {
       color: var(--primary-color);
-      margin-top: 20px;
+      margin-top: 15px;
       margin-bottom: 10px;
     }
+    
     .post-content p {
       margin-bottom: 15px;
     }
+    
     .post-content ul, .post-content ol {
       margin-bottom: 15px;
       padding-left: 20px;
     }
+    
     .post-content code {
       background: var(--bg-tertiary);
       padding: 2px 6px;
       border-radius: 4px;
       font-family: monospace;
     }
+    
     .post-content pre {
       background: var(--bg-tertiary);
       padding: 15px;
@@ -185,6 +170,7 @@
       overflow-x: auto;
       margin: 15px 0;
     }
+    
     .post-content blockquote {
       border-left: 4px solid var(--primary-color);
       padding-left: 15px;
@@ -192,15 +178,227 @@
       color: var(--text-secondary);
       font-style: italic;
     }
+    
+    .post-actions {
+      padding: 15px 25px 25px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .read-more {
+      color: var(--primary-color);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+    .read-more:hover {
+      color: var(--primary-dark);
+      transform: translateX(3px);
+    }
+    
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .admin-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.8em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .edit-btn {
+      background: #f59e0b;
+      color: white;
+    }
+    .edit-btn:hover {
+      background: #d97706;
+    }
+    
+    .delete-btn {
+      background: #ef4444;
+      color: white;
+    }
+    .delete-btn:hover {
+      background: #dc2626;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    .pagination button {
+      padding: 12px 24px;
+      background: var(--primary-color);
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    .pagination button:disabled {
+      background: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-secondary);
+      font-size: 1.1em;
+    }
+    
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 10px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .error {
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      color: #991b1b;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 1px solid #fecaca;
+      text-align: center;
+    }
+    
+    .no-posts {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-secondary);
+      font-style: italic;
+      background: var(--bg-primary);
+      border-radius: 12px;
+      border: 2px dashed var(--border-color);
+    }
+    
+    /* Delete Confirmation Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal {
+      background: var(--bg-primary);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal-overlay.active .modal {
+      transform: scale(1);
+    }
+    
+    .modal h3 {
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+    
+    .modal p {
+      margin-bottom: 25px;
+      color: var(--text-secondary);
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    .modal-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .modal-btn.cancel {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .modal-btn.confirm {
+      background: #ef4444;
+      color: white;
+    }
+    
+    .modal-btn:hover {
+      transform: translateY(-1px);
+    }
+    
     @media (max-width: 768px) {
       .filters {
         grid-template-columns: 1fr;
       }
-      .post {
-        padding: 20px;
+      .posts-grid {
+        grid-template-columns: 1fr;
       }
       .blog-header h1 {
         font-size: 2rem;
+      }
+      .post {
+        margin: 0 10px;
+      }
+      .post-actions {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+      .admin-actions {
+        justify-content: center;
       }
     }
   </style>
@@ -262,19 +460,31 @@
       </div>
       
       <div class="filters">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search blog posts...">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search blog posts...">
         <select id="tagFilter" class="tag-filter">
-          <option value="">All Tags</option>
+          <option value="">🏷️ All Tags</option>
         </select>
       </div>
 
       <div id="blogContainer">
-        <div class="loading">Loading posts...</div>
+        <div class="loading">Loading posts</div>
       </div>
 
       <div class="pagination">
         <button id="prevBtn">← Previous</button>
         <button id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <h3>🗑️ Delete Post</h3>
+      <p>Are you sure you want to delete "<span id="deletePostTitle"></span>"? This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="modal-btn cancel" onclick="closeDeleteModal()">Cancel</button>
+        <button class="modal-btn confirm" onclick="confirmDelete()">Delete</button>
       </div>
     </div>
   </div>
@@ -360,20 +570,27 @@
   </footer>
 
   <script>
-    const postsPerPage = 5;
+    const postsPerPage = 6;
     let allPosts = [];
     let filteredPosts = [];
     let currentPage = 1;
+    let postToDelete = null;
 
     const blogContainer = document.getElementById('blogContainer');
     const searchInput = document.getElementById('searchInput');
     const tagFilter = document.getElementById('tagFilter');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const deleteModal = document.getElementById('deleteModal');
+
+    // Check if user is admin
+    function isAdmin() {
+      return localStorage.getItem('adminAuthenticated') === 'true';
+    }
 
     async function fetchPosts() {
       try {
-        blogContainer.innerHTML = '<div class="loading">Loading posts...</div>';
+        blogContainer.innerHTML = '<div class="loading">Loading posts</div>';
         
         const res = await fetch('https://raw.githubusercontent.com/vbel111/gamesspechub/main/public/blog/blogs.json');
         
@@ -439,6 +656,10 @@
         return;
       }
 
+      // Create grid container
+      const gridContainer = document.createElement('div');
+      gridContainer.className = 'posts-grid';
+
       postsToShow.forEach(post => {
         const div = document.createElement('div');
         div.className = 'post';
@@ -448,8 +669,8 @@
         const tagsHtml = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
         
         // Create preview content
-        const preview = post.content.length > 300 
-            ? post.content.slice(0, 300) + '...'
+        const preview = post.content.length > 200 
+            ? post.content.slice(0, 200) + '...'
             : post.content;
 
         // Format date
@@ -459,48 +680,167 @@
           day: 'numeric'
         });
 
+        // Admin actions HTML
+        const adminActions = isAdmin() ? `
+          <div class="admin-actions">
+            <button class="admin-btn edit-btn" onclick="editPost(${post.id})">✏️ Edit</button>
+            <button class="admin-btn delete-btn" onclick="showDeleteModal(${post.id})">🗑️ Delete</button>
+          </div>
+        ` : '';
+
         div.innerHTML = `
-          <h2>${post.title}</h2>
-          <div class="post-meta">
-            <span class="post-date">📅 ${formattedDate}</span>
-            ${tags.length > 0 ? `<div class="post-tags">${tagsHtml}</div>` : ''}
+          <div class="post-header">
+            <h2>${post.title}</h2>
+            <div class="post-meta">
+              <span class="post-date">📅 ${formattedDate}</span>
+              ${tags.length > 0 ? `<div class="post-tags">${tagsHtml}</div>` : ''}
+            </div>
           </div>
           <div class="post-content">
             ${marked.parse(preview)}
           </div>
-          ${post.content.length > 300 ? '<span class="read-more">Read more</span>' : ''}
-          <div class="full-content" style="display:none">
-            ${marked.parse(post.content)}
+          <div class="post-actions">
+            <a href="post.html?id=${post.id}" class="read-more">
+              Read full post →
+            </a>
+            ${adminActions}
           </div>
-          <a href="post.html?id=${post.id}" class="read-more">Read full post →</a>
         `;
 
-        // Add read more functionality
-        const readMoreBtn = div.querySelector('.read-more');
-        if (readMoreBtn && post.content.length > 300) {
-          readMoreBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const fullContent = div.querySelector('.full-content');
-            const previewContent = div.querySelector('.post-content');
-            
-            if (fullContent.style.display === 'none') {
-              fullContent.style.display = 'block';
-              previewContent.style.display = 'none';
-              readMoreBtn.textContent = 'Read less';
-            } else {
-              fullContent.style.display = 'none';
-              previewContent.style.display = 'block';
-              readMoreBtn.textContent = 'Read more';
-            }
-          });
-        }
-
-        blogContainer.appendChild(div);
+        gridContainer.appendChild(div);
       });
+
+      blogContainer.appendChild(gridContainer);
 
       // Update pagination
       prevBtn.disabled = currentPage === 1;
       nextBtn.disabled = end >= filteredPosts.length;
+    }
+
+    // Delete functionality
+    function showDeleteModal(postId) {
+      const post = allPosts.find(p => p.id === postId);
+      if (!post) return;
+      
+      postToDelete = postId;
+      document.getElementById('deletePostTitle').textContent = post.title;
+      deleteModal.classList.add('active');
+    }
+
+    function closeDeleteModal() {
+      deleteModal.classList.remove('active');
+      postToDelete = null;
+    }
+
+    async function confirmDelete() {
+      if (!postToDelete) return;
+      
+      try {
+        // Get current posts
+        const currentPosts = allPosts.filter(p => p.id !== postToDelete);
+        
+        // Update the blogs.json file via GitHub API
+        const token = localStorage.getItem('githubToken');
+        if (!token) {
+          alert('GitHub token not found. Please log in to admin panel first.');
+          closeDeleteModal();
+          return;
+        }
+
+        // Get current file content and SHA
+        const fileRes = await fetch(`https://api.github.com/repos/vbel111/gamesspechub/contents/public/blog/blogs.json`, {
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (!fileRes.ok) {
+          throw new Error('Failed to get current file info');
+        }
+
+        const fileInfo = await fileRes.json();
+        
+        // Update the file
+        const updateRes = await fetch(`https://api.github.com/repos/vbel111/gamesspechub/contents/public/blog/blogs.json`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: `Delete blog post: ${allPosts.find(p => p.id === postToDelete)?.title}`,
+            content: btoa(JSON.stringify(currentPosts, null, 2)),
+            sha: fileInfo.sha
+          })
+        });
+
+        if (!updateRes.ok) {
+          throw new Error('Failed to delete post');
+        }
+
+        // Update local state
+        allPosts = currentPosts;
+        filteredPosts = allPosts.filter(post =>
+          post.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+          post.content.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+          (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchInput.value.toLowerCase())))
+        );
+        
+        populateTags();
+        renderPosts();
+        
+        closeDeleteModal();
+        
+        // Show success message
+        showNotification('Post deleted successfully!', 'success');
+        
+      } catch (error) {
+        console.error('Error deleting post:', error);
+        alert('Failed to delete post: ' + error.message);
+        closeDeleteModal();
+      }
+    }
+
+    function editPost(postId) {
+      // Redirect to admin page with post data
+      const post = allPosts.find(p => p.id === postId);
+      if (post) {
+        localStorage.setItem('editPost', JSON.stringify(post));
+        window.location.href = 'admin.html';
+      }
+    }
+
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        z-index: 1001;
+        background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      `;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
     }
 
     // Event listeners
@@ -542,6 +882,13 @@
       }
       currentPage = 1;
       renderPosts();
+    });
+
+    // Close modal when clicking outside
+    deleteModal.addEventListener('click', (e) => {
+      if (e.target === deleteModal) {
+        closeDeleteModal();
+      }
     });
 
     // Navigation functions

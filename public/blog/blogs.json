@@ -1,44 +1,23 @@
 [
   {
-    "id": 1750462710241,
-    "title": "TOP 10 GAMES TO TRY TODAY",
-    "date": "2025-06-20",
-    "tags": [
-      "lowend",
-      "2gb"
-    ],
-    "content": "TOP 10 GAMES"
-  },
-  {
     "id": 1,
     "title": "🎮 GameSpecsHub Launch!",
     "date": "2025-06-20",
-    "tags": [
-      "announcement",
-      "launch"
-    ],
+    "tags": ["announcement", "launch"],
     "content": "We're officially live! GameSpecsHub is your new home for game specs, news, and more.\n\n## What's New?\n\n- **Game Specifications Database**: Find detailed specs for any game\n- **Performance Benchmarks**: Real-world testing results\n- **Community Reviews**: User-generated content and ratings\n\nStay tuned for more updates!"
   },
   {
     "id": 2,
     "title": "🔥 Top Gaming GPUs in 2025",
     "date": "2025-06-19",
-    "tags": [
-      "hardware",
-      "gpu",
-      "benchmarks"
-    ],
+    "tags": ["hardware", "gpu", "benchmarks"],
     "content": "We review the latest high-end graphics cards and how they perform across AAA titles.\n\n### Top Performers:\n\n1. **RTX 4090** - Still the king\n2. **RTX 4080** - Best value for money\n3. **RX 7900 XTX** - AMD's flagship\n\n*Benchmarks coming soon!*"
   },
   {
     "id": 3,
     "title": "👾 Why Indie Games Are Winning",
     "date": "2025-06-18",
-    "tags": [
-      "indie",
-      "gaming",
-      "trends"
-    ],
+    "tags": ["indie", "gaming", "trends"],
     "content": "Indie titles are taking over with unique storytelling and fresh mechanics.\n\n## The Rise of Indie Gaming\n\nIndie developers are pushing boundaries and creating experiences that AAA studios often can't match. From **Hollow Knight** to **Celeste**, these games prove that passion beats budget.\n\n### What Makes Indie Games Special?\n\n- **Innovation**: Risk-taking gameplay mechanics\n- **Artistic Vision**: Uncompromised creative direction\n- **Community Focus**: Direct developer-player interaction"
   }
 ]
