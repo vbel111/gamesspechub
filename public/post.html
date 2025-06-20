@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blog Details</title>
+  <script src="assets/js/marked.min.js"></script>
+  <style>
+    body { font-family: Inter, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+    .content { line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <h1 id="title">Loading...</h1>
+  <small id="date"></small>
+  <div id="tags"></div>
+  <div id="content" class="content"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const postId = parseInt(params.get('id'));
+
+    fetch('/blogs/blogs.json')
+      .then(res => res.json())
+      .then(data => {
+        const post = data.find(p => p.id === postId);
+        if (!post) return document.body.innerHTML = '<p>Post not found.</p>';
+        document.getElementById('title').innerText = post.title;
+        document.getElementById('date').innerText = post.date;
+        document.getElementById('tags').innerText = `Tags: ${post.tags.join(', ')}`;
+        document.getElementById('content').innerHTML = marked.parse(post.content);
+      });
+  </script>
+</body>
+</html>
 
