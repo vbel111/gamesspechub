@@ -1,230 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-<script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-<script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-<script>
-    window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
-</script>
-    <meta name="google-adsense-account" content="ca-pub-7194731936773317">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameSpecsHub Blog - Low-End Gaming Tips & Tweaks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/images/favicon.svg">
-    <style>
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: #f9fafb;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background: #23272f;
-            color: #fff;
-            padding: 1rem 0;
-        }
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .nav-logo {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        .logo-icon {
-            margin-right: 8px;
-        }
-        .nav-menu {
-            display: flex;
-            gap: 1.2rem;
-        }
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-link.active, .nav-link:hover {
-            color: #00bcd4;
-        }
-        .nav-actions button {
-            background: none;
-            border: none;
-            color: #fff;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-        .page-header {
-            background: linear-gradient(90deg, #23272f 60%, #00bcd4 100%);
-            color: #fff;
-            padding: 2.5rem 0 1.5rem 0;
-        }
-        .page-header-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .page-header h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 2.5rem;
-        }
-        .blog-section {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .blog-post {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            margin-bottom: 2rem;
-            padding: 2rem;
-            transition: box-shadow 0.2s;
-        }
-        .blog-post:hover {
-            box-shadow: 0 4px 16px rgba(0,188,212,0.10);
-        }
-        .blog-post h2 {
-            margin-top: 0;
-            color: #00bcd4;
-        }
-        .blog-post ul {
-            padding-left: 1.2rem;
-        }
-        .blog-post li {
-            margin-bottom: 0.7em;
-        }
-        .blog-post a {
-            color: #00bcd4;
-            text-decoration: underline;
-        }
-        .blog-post a:hover {
-            color: #008fa3;
-        }
-        @media (max-width: 600px) {
-            .nav-container, .blog-section, .page-header-content {
-                max-width: 100%;
-                padding: 0 1rem;
-            }
-            .blog-post {
-                padding: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GameSpecsHub Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="assets/js/marked.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 20px;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      color: #00bcd4;
+    }
+    .search-input, .tag-filter {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .post {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .post h2 {
+      margin: 0;
+      color: #00bcd4;
+    }
+    .post small {
+      color: #777;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .tag {
+      display: inline-block;
+      background: #e0f7fa;
+      color: #007c91;
+      padding: 3px 10px;
+      margin-right: 6px;
+      border-radius: 4px;
+      font-size: 0.8em;
+    }
+    .read-more {
+      color: #00bcd4;
+      cursor: pointer;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    .pagination button {
+      padding: 8px 16px;
+      background: #00bcd4;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .pagination button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-icon">🎮</span>
-                <span class="logo-text">GameSpecsHub</span>
-            </a>
-            <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="categories.html" class="nav-link">Categories</a>
-                <a href="low-spec.html" class="nav-link">Low-Spec Games</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-                <a href="blog.html" class="nav-link active">Blog</a>
-            </div>
-            <div class="nav-actions">
-                <button class="search-btn" onclick="toggleSearch()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                </button>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-                    </svg>
-                </button>
-                <button class="nav-toggle" aria-label="Open navigation">
-                    <span class="nav-icon"></span>
-                    <span class="nav-icon"></span>
-                    <span class="nav-icon"></span>
-                </button>
-            </div>
-        </div>
-        <!-- Search Overlay -->
-        <div class="search-overlay" id="search-overlay" style="display:none;">
-            <div class="search-container">
-                <input type="text" placeholder="Search games..." class="search-input" id="search-input">
-                <button class="search-close" onclick="toggleSearch()">×</button>
-            </div>
-            <div class="search-results" id="search-results"></div>
-        </div>
-    </nav>
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <div class="page-header-content">
-                <h1>Blog</h1>
-                <p>Latest news, tips, and tweaks for low-end gaming from GameSpecsHub</p>
-            </div>
-        </div>
-    </section>
-    <section class="blog-section">
-        <article class="blog-post">
-            <h2>Ultimate Guide to Low-End Gaming in 2025</h2>
-            <p>
-                Not everyone has a high-end gaming PC, but that doesn’t mean you can’t enjoy great games! Here are some tips and tweaks to get the most out of your low-spec system:
-            </p>
-            <ul>
-                <li><strong>Lower Your Resolution:</strong> Dropping your game’s resolution can dramatically improve performance.</li>
-                <li><strong>Adjust In-Game Settings:</strong> Set graphics to low or medium, disable shadows, and turn off anti-aliasing for smoother gameplay.</li>
-                <li><strong>Update Your Drivers:</strong> Make sure your graphics and chipset drivers are up to date for the best compatibility and performance.</li>
-                <li><strong>Close Background Apps:</strong> Free up RAM and CPU by closing unnecessary programs before launching your game.</li>
-                <li><strong>Use Game Boosters:</strong> Tools like Razer Cortex or Windows Game Mode can help optimize your system for gaming.</li>
-                <li><strong>Try Lightweight Games:</strong> Explore our <a href="low-spec.html">Low-Spec Games</a> section for titles that run great on older hardware.</li>
-            </ul>
-        </article>
-        <article class="blog-post">
-            <h2>Essential Windows Tweaks for Better Gaming Performance</h2>
-            <p>
-                A few system tweaks can make a big difference for low-end gamers:
-            </p>
-            <ul>
-                <li><strong>Enable Game Mode:</strong> Go to Settings &gt; Gaming &gt; Game Mode and turn it on.</li>
-                <li><strong>Disable Startup Programs:</strong> Use Task Manager to prevent unnecessary apps from starting with Windows.</li>
-                <li><strong>Adjust Power Settings:</strong> Set your PC to High Performance mode in Control Panel &gt; Power Options.</li>
-                <li><strong>Clean Up Disk Space:</strong> Use Disk Cleanup or Storage Sense to remove junk files.</li>
-                <li><strong>Keep Windows Updated:</strong> Install the latest updates for security and performance improvements.</li>
-            </ul>
-        </article>
-        <article class="blog-post">
-            <h2>Top 5 Free Games for Low-End PCs</h2>
-            <ul>
-                <li><strong>Stardew Valley (Demo):</strong> A charming farming sim that runs on almost any PC.</li>
-                <li><strong>Team Fortress 2:</strong> Classic team-based shooter with low requirements.</li>
-                <li><strong>Undertale (Demo):</strong> Unique RPG with retro graphics and low hardware needs.</li>
-                <li><strong>League of Legends:</strong> Popular MOBA that’s optimized for older systems.</li>
-                <li><strong>Minecraft (Classic):</strong> The original browser version is still playable and light.</li>
-            </ul>
-        </article>
-        <article class="blog-post">
-            <h2>How to Optimize Your Laptop for Gaming</h2>
-            <ul>
-                <li><strong>Keep it Cool:</strong> Use a cooling pad and clean vents regularly to prevent overheating.</li>
-                <li><strong>Plug In:</strong> Always play while plugged in for maximum performance.</li>
-                <li><strong>Lower Screen Brightness:</strong> Reduces heat and saves battery.</li>
-                <li><strong>Disable Battery Saver:</strong> Make sure Windows isn’t limiting your CPU or GPU.</li>
-            </ul>
-        </article>
-    </section>
-    <script src="assets/js/main.js"></script>
+  <h1>📰 GameSpecsHub Blog</h1>
+  <input type="text" id="searchInput" class="search-input" placeholder="Search blog posts...">
+  <select id="tagFilter" class="tag-filter">
+    <option value="">Filter by tag</option>
+  </select>
+
+  <div id="blogContainer"></div>
+
+  <div class="pagination">
+    <button id="prevBtn">← Previous</button>
+    <button id="nextBtn">Next →</button>
+  </div>
+
+  <script>
+    const postsPerPage = 5;
+    let allPosts = [];
+    let filteredPosts = [];
+    let currentPage = 1;
+
+    const blogContainer = document.getElementById('blogContainer');
+    const searchInput = document.getElementById('searchInput');
+    const tagFilter = document.getElementById('tagFilter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    async function fetchPosts() {
+      const res = await fetch('/blogs/blogs.json');
+      const data = await res.json();
+      allPosts = data;
+      filteredPosts = [...allPosts];
+      populateTags();
+      renderPosts();
+    }
+
+    function populateTags() {
+      const tags = new Set();
+      allPosts.forEach(p => p.tags.forEach(tag => tags.add(tag)));
+      tags.forEach(tag => {
+        const opt = document.createElement('option');
+        opt.value = tag;
+        opt.textContent = tag;
+        tagFilter.appendChild(opt);
+      });
+    }
+
+    function renderPosts() {
+      blogContainer.innerHTML = '';
+      const start = (currentPage - 1) * postsPerPage;
+      const end = start + postsPerPage;
+      const postsToShow = filteredPosts.slice(start, end);
+
+      if (postsToShow.length === 0) {
+        blogContainer.innerHTML = '<p>No posts found.</p>';
+        return;
+      }
+
+      postsToShow.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'post';
+
+        const tagsHtml = post.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ');
+        const preview = post.content.length > 300 
+            ? post.content.slice(0, 300) + '...'
+            : post.content;
+
+        div.innerHTML = `
+          <h2>${post.title}</h2>
+          <small>${post.date}</small>
+          ${tagsHtml}
+          <div class="preview-text">${marked.parse(preview)}</div>
+          ${post.content.length > 300 ? '<span class="read-more">Read more</span>' : ''}
+          <div class="full-text" style="display:none">${marked.parse(post.content)}</div>
+          <a href="post.html?id=${post.id}">Read full post →</a>
+        `;
+
+        const readMoreBtn = div.querySelector('.read-more');
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener('click', () => {
+            const fullText = div.querySelector('.full-text');
+            const previewText = div.querySelector('.preview-text');
+            if (fullText.style.display === 'none') {
+              fullText.style.display = 'block';
+              previewText.style.display = 'none';
+              readMoreBtn.textContent = 'Read less';
+            } else {
+              fullText.style.display = 'none';
+              previewText.style.display = 'block';
+              readMoreBtn.textContent = 'Read more';
+            }
+          });
+        }
+
+        blogContainer.appendChild(div);
+      });
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = end >= filteredPosts.length;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPosts();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if ((currentPage * postsPerPage) < filteredPosts.length) {
+        currentPage++;
+        renderPosts();
+      }
+    });
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      filteredPosts = allPosts.filter(post =>
+        post.title.toLowerCase().includes(query) ||
+        post.content.toLowerCase().includes(query)
+      );
+      currentPage = 1;
+      renderPosts();
+    });
+
+    tagFilter.addEventListener('change', () => {
+      const selected = tagFilter.value;
+      if (selected) {
+        filteredPosts = allPosts.filter(p => p.tags.includes(selected));
+      } else {
+        filteredPosts = [...allPosts];
+      }
+      currentPage = 1;
+      renderPosts();
+    });
+
+    fetchPosts();
+  </script>
 </body>
 </html>
