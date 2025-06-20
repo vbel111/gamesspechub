@@ -1,35 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Blog Details</title>
+  <meta charset="UTF-8">
+  <title>GameSpecsHub Blog Post</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="assets/js/marked.min.js"></script>
   <style>
-    body { font-family: Inter, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
-    .content { line-height: 1.7; }
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: #f9fafb;
+    }
+    h1 {
+      color: #00bcd4;
+    }
+    .tag {
+      display: inline-block;
+      background: #e0f7fa;
+      color: #007c91;
+      padding: 3px 10px;
+      margin: 6px 6px 6px 0;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
   </style>
 </head>
 <body>
-  <h1 id="title">Loading...</h1>
-  <small id="date"></small>
-  <div id="tags"></div>
-  <div id="content" class="content"></div>
+  <div id="postContainer"></div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const postId = parseInt(params.get('id'));
+    const postId = new URLSearchParams(location.search).get("id");
 
-    fetch('/blogs/blogs.json')
+    fetch("https://raw.githubusercontent.com/vbel111/gamesspechub/main/blogs/blogs.json")
       .then(res => res.json())
       .then(data => {
-        const post = data.find(p => p.id === postId);
-        if (!post) return document.body.innerHTML = '<p>Post not found.</p>';
-        document.getElementById('title').innerText = post.title;
-        document.getElementById('date').innerText = post.date;
-        document.getElementById('tags').innerText = `Tags: ${post.tags.join(', ')}`;
-        document.getElementById('content').innerHTML = marked.parse(post.content);
+        const post = data.find(p => p.id == postId);
+        if (!post) {
+          document.getElementById("postContainer").innerHTML = "<p>Post not found.</p>";
+          return;
+        }
+
+        document.title = post.title + " - GameSpecsHub";
+        document.getElementById("postContainer").innerHTML = `
+          <h1>${post.title}</h1>
+          <small>${post.date}</small><br>
+          ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          <div style="margin-top:20px">${marked.parse(post.content)}</div>
+        `;
       });
   </script>
 </body>
 </html>
-
