@@ -1,53 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Panel</title>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - GameSpecsHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
-    input, textarea { width: 100%; padding: 10px; margin: 10px 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f9;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      color: #222;
+    }
+    h2 {
+      text-align: center;
+      color: #00bcd4;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #00bcd4;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .preview {
+      background: #fff;
+      border: 1px dashed #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+    .output {
+      white-space: pre-wrap;
+      background: #eee;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
   </style>
+  <script src="assets/js/marked.min.js"></script>
 </head>
 <body>
-  <h2>Admin Login</h2>
-  <input type="password" id="password" placeholder="Enter admin password" />
-  <button onclick="login()">Login</button>
 
-  <div id="formSection" style="display:none;">
-    <h2>New Blog Post</h2>
-    <input id="title" placeholder="Title">
-    <input id="date" type="date">
-    <input id="tags" placeholder="Tags (comma separated)">
-    <textarea id="content" rows="10" placeholder="Markdown content..."></textarea>
-    <button onclick="savePost()">Save Blog</button>
-    <p>Copy this blog and manually paste into <code>blogs.json</code></p>
-    <pre id="output"></pre>
-  </div>
+<h2>📝 Post a New Blog - GameSpecsHub</h2>
 
-  <script>
-    const adminPass = "yourSecret123";
+<!-- GitHub Token Section -->
+<div id="tokenSection">
+  <p>Enter your GitHub token (stored in browser):</p>
+  <input type="password" id="tokenInput" placeholder="GitHub Token" />
+  <button onclick="storeToken()">Save Token</button>
+</div>
 
-    function login() {
-      const input = document.getElementById('password').value;
-      if (input === adminPass) {
-        document.getElementById('formSection').style.display = 'block';
-      } else {
-        alert('Wrong password!');
-      }
+<!-- Blog Form -->
+<div id="adminForm" style="display:none;">
+  <input type="text" id="title" placeholder="Post title" />
+  <input type="date" id="date" />
+  <input type="text" id="tags" placeholder="Tags (comma-separated)" />
+  <textarea id="content" rows="10" placeholder="Write in Markdown..."></textarea>
+
+  <label><strong>Upload Image:</strong></label>
+  <input type="file" id="imageUpload" accept="image/*" />
+  <button onclick="uploadImage()">Upload Image</button>
+  <p id="imgURL"></p>
+
+  <button onclick="createBlog()">📤 Publish Post</button>
+
+  <h3>Live Preview</h3>
+  <div class="preview" id="previewBox"></div>
+
+  <h3>API Response</h3>
+  <div class="output" id="output"></div>
+</div>
+
+<script>
+  const owner = "vbel111";
+  const repo = "gamesspechub";
+  const path = "blogs/blogs.json";
+  const imgbbAPI = "YOUR_IMGBB_API_KEY"; // Replace with your imgbb.com API key
+  let token = localStorage.getItem("gh_token");
+
+  if (token) {
+    document.getElementById("adminForm").style.display = "block";
+    document.getElementById("tokenSection").style.display = "none";
+  }
+
+  function storeToken() {
+    token = document.getElementById("tokenInput").value;
+    localStorage.setItem("gh_token", token);
+    location.reload();
+  }
+
+  async function createBlog() {
+    const title = document.getElementById("title").value.trim();
+    const date = document.getElementById("date").value;
+    const tags = document.getElementById("tags").value.split(',').map(t => t.trim());
+    const content = document.getElementById("content").value;
+
+    if (!title || !date || !content) return alert("Fill all fields");
+
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+      headers: { Authorization: `token ${token}` }
+    });
+    const blogData = await res.json();
+    const blogs = JSON.parse(atob(blogData.content));
+
+    const newPost = {
+      id: Date.now(),
+      title, date, tags, content
+    };
+
+    blogs.unshift(newPost);
+    const updatedContent = btoa(JSON.stringify(blogs, null, 2));
+
+    const push = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: `Add blog: ${title}`,
+        content: updatedContent,
+        sha: blogData.sha
+      })
+    });
+
+    const result = await push.json();
+    document.getElementById("output").textContent = JSON.stringify(result, null, 2);
+    if (result.commit) alert("✅ Blog Published!");
+  }
+
+  document.getElementById("content").addEventListener("input", () => {
+    const md = document.getElementById("content").value;
+    document.getElementById("previewBox").innerHTML = marked.parse(md);
+  });
+
+  async function uploadImage() {
+    const file = document.getElementById("imageUpload").files[0];
+    if (!file) return alert("Please choose an image.");
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPI}`, {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      const imageUrl = data.data.url;
+      document.getElementById("imgURL").innerHTML = `Image URL: <a href="${imageUrl}" target="_blank">${imageUrl}</a>`;
+      navigator.clipboard.writeText(`![Alt text](${imageUrl})`);
+      alert("✅ Image uploaded and markdown copied!");
+    } else {
+      alert("❌ Upload failed");
     }
-
-    function savePost() {
-      const title = document.getElementById('title').value;
-      const date = document.getElementById('date').value;
-      const tags = document.getElementById('tags').value.split(',').map(t => t.trim());
-      const content = document.getElementById('content').value;
-
-      const post = {
-        id: Date.now(),
-        title, date, tags, content
-      };
-
-      document.getElementById('output').innerText = JSON.stringify(post, null, 2);
-    }
-  </script>
+  }
+</script>
 </body>
 </html>
