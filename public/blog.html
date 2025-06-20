@@ -104,7 +104,7 @@
     const nextBtn = document.getElementById('nextBtn');
 
     async function fetchPosts() {
-      const res = await fetch('/blogs/blogs.json');
+      const res = await fetch('https://raw.githubusercontent.com/vbel111/gamesspechub/main/blogs/blogs.json');
       const data = await res.json();
       allPosts = data;
       filteredPosts = [...allPosts];
