@@ -508,7 +508,8 @@
         };
 
         blogs.unshift(newPost);
-        const updatedContent = btoa(JSON.stringify(blogs, null, 2));
+        const updatedContent = btoaUnicode(JSON.stringify(blogs, null, 2));
+
 
         // Update file
         const push = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
