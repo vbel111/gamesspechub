@@ -464,6 +464,8 @@
         <select id="tagFilter" class="tag-filter">
           <option value="">🏷️ All Tags</option>
         </select>
+        <button onclick="debugAuth()" style="padding: 12px 16px; background: #6b7280; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">🔧 Debug Auth</button>
+        <button onclick="quickAuth()" style="padding: 12px 16px; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">🔑 Quick Auth</button>
       </div>
 
       <div id="blogContainer">
@@ -585,7 +587,37 @@
 
     // Check if user is admin
     function isAdmin() {
-      return localStorage.getItem('adminAuthenticated') === 'true';
+      const authenticated = localStorage.getItem('admin_authenticated') === 'true';
+      const token = localStorage.getItem('gh_token');
+      console.log('Auth check - authenticated:', authenticated, 'token exists:', !!token);
+      return authenticated && !!token;
+    }
+
+    // Debug function to check authentication status
+    function debugAuth() {
+      const authenticated = localStorage.getItem('admin_authenticated');
+      const token = localStorage.getItem('gh_token');
+      console.log('=== AUTH DEBUG ===');
+      console.log('admin_authenticated:', authenticated);
+      console.log('gh_token exists:', !!token);
+      console.log('gh_token length:', token ? token.length : 0);
+      console.log('Is admin:', isAdmin());
+      
+      if (!authenticated || !token) {
+        alert(`Authentication Debug:\n\nadmin_authenticated: ${authenticated}\ngh_token exists: ${!!token}\n\nPlease log in to admin panel first!`);
+      }
+    }
+
+    // Quick auth fix function
+    function quickAuth() {
+      const token = localStorage.getItem('gh_token');
+      if (token) {
+        localStorage.setItem('admin_authenticated', 'true');
+        alert('Authentication fixed! Refresh the page to see admin controls.');
+        location.reload();
+      } else {
+        alert('No GitHub token found. Please go to admin.html and set up your token first.');
+      }
     }
 
     async function fetchPosts() {
