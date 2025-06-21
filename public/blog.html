@@ -681,7 +681,10 @@
         });
 
         // Admin actions HTML
-        const adminActions = isAdmin() ? `
+        const isAdminUser = isAdmin();
+        console.log('Is admin user:', isAdminUser);
+        
+        const adminActions = isAdminUser ? `
           <div class="admin-actions">
             <button class="admin-btn edit-btn" onclick="editPost(${post.id})">✏️ Edit</button>
             <button class="admin-btn delete-btn" onclick="showDeleteModal(${post.id})">🗑️ Delete</button>
@@ -736,16 +739,21 @@
       if (!postToDelete) return;
       
       try {
+        console.log('Starting delete process for post ID:', postToDelete);
+        
         // Get current posts
         const currentPosts = allPosts.filter(p => p.id !== postToDelete);
+        console.log('Posts after filtering:', currentPosts.length);
         
         // Update the blogs.json file via GitHub API
-        const token = localStorage.getItem('githubToken');
+        const token = localStorage.getItem('gh_token');
         if (!token) {
           alert('GitHub token not found. Please log in to admin panel first.');
           closeDeleteModal();
           return;
         }
+        
+        console.log('GitHub token found, proceeding with API call');
 
         // Get current file content and SHA
         const fileRes = await fetch(`https://api.github.com/repos/vbel111/gamesspechub/contents/public/blog/blogs.json`, {
@@ -755,11 +763,16 @@
           }
         });
 
+        console.log('File fetch response status:', fileRes.status);
+        
         if (!fileRes.ok) {
-          throw new Error('Failed to get current file info');
+          const errorText = await fileRes.text();
+          console.error('File fetch error:', errorText);
+          throw new Error(`Failed to get current file info: ${fileRes.status} ${fileRes.statusText}`);
         }
 
         const fileInfo = await fileRes.json();
+        console.log('File info retrieved, SHA:', fileInfo.sha);
         
         // Update the file
         const updateRes = await fetch(`https://api.github.com/repos/vbel111/gamesspechub/contents/public/blog/blogs.json`, {
@@ -775,9 +788,15 @@
           })
         });
 
+        console.log('Update response status:', updateRes.status);
+        
         if (!updateRes.ok) {
-          throw new Error('Failed to delete post');
+          const errorData = await updateRes.json();
+          console.error('Update error data:', errorData);
+          throw new Error(`Failed to delete post: ${errorData.message || updateRes.statusText}`);
         }
+
+        console.log('Post deleted successfully from GitHub');
 
         // Update local state
         allPosts = currentPosts;
