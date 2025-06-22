@@ -420,6 +420,12 @@
     // Set default date to today
     document.getElementById("date").value = new Date().toISOString().split('T')[0];
 
+    function btoaUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+    String.fromCharCode('0x' + p1)
+  ));
+}
+       
     function showStatus(message, type = "info") {
       const statusDiv = document.getElementById("status");
       statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
