@@ -1,23 +1,45 @@
 [
   {
+    "id": 1750590660912,
+    "title": "🎮 Top 10 PC Games That Run Smoothly on Low-End Systems (2025 Edition)",
+    "date": "2025-06-22",
+    "tags": [
+      "lowend",
+      "2gb",
+      "games"
+    ],
+    "content": "Are you tired of laggy gameplay and low FPS on your entry-level PC or laptop? You’re not alone. At GameSpecsHub.xyz, we know that not everyone has a high-end rig. That’s why we’ve put together a list of 10 awesome games that run well on low-end PCs, even with integrated graphics!\n\nWhether you’re into shooters, story-driven adventures, or open-world exploration, there’s something for you here 👇\n\n🔟 10. Hotline Miami\n🔧 Minimum Specs: Intel Core 2 Duo, 2GB RAM\n\n🎮 Fast-paced, top-down action with a killer soundtrack.\n\n💡 Perfect for fans of fast reflexes and retro style.\n\n9. Undertale\n🔧 Minimum Specs: 2GB RAM, any dual-core CPU\n\n🧠 A clever RPG that flips everything you know about games.\n\n❤️ Make friends... or don’t. Your choice actually matters.\n\n8. Stardew Valley\n🔧 Minimum Specs: 2GB RAM, 2GHz CPU\n\n🌾 Build your farm, fish, mine, and fall in love.\n\n🕹️ Low requirements, massive content.\n\n7. Counter-Strike: Global Offensive (CS:GO)\n🔧 Minimum Specs: Intel Core 2 Duo E6600, 2GB RAM\n\n💥 The classic competitive FPS that even potatoes can run.\n\n🧠 Ideal for esports enthusiasts on a budget.\n\n6. Portal 2\n🔧 Minimum Specs: 1.7GHz CPU, 2GB RAM, Intel HD Graphics\n\n🧩 Mind-bending puzzles and a hilarious story.\n\n🤖 One of Valve’s finest titles, optimized for all systems.\n\n5. Terraria\n🔧 Minimum Specs: 2GB RAM, 2.0 GHz CPU\n\n🌍 A 2D Minecraft-style adventure with endless creativity.\n\n🧱 Pixel graphics, big fun.\n\n4. Don’t Starve\n🔧 Minimum Specs: 1.7GHz processor, 1GB RAM\n\n🪓 Survive, craft, and try not to go insane.\n\n🎨 Unique Tim Burton-like visuals.\n\n3. Papers, Please\n🔧 Minimum Specs: Just about anything!\n\n📄 A border officer simulation with deep moral choices.\n\n🧠 “A dystopian document thriller” — truly unique.\n\n2. The Binding of Isaac: Rebirth\n🔧 Minimum Specs: 2GB RAM, 2.4GHz CPU\n\n💣 Procedurally generated dungeons + dark themes + wild powerups.\n\n🔄 Never the same game twice.\n\n🥇 1. Minecraft (with Optifine Mod)\n🔧 Minimum Specs: 2GB RAM, Integrated Graphics (Optifine helps!)\n\n🧱 Build, mine, survive, explore — even on a low-end laptop.\n\n🌍 One of the most accessible games ever.\n\n💬 Final Thoughts\nLow-end PC gamers deserve fun too. These games prove you don’t need an RTX 4090 to have a blast. For full specs and downloadable system requirement files, visit:\n\n👉 GameSpecsHub.xyz – Your #1 Source for Game Specs & Performance Tips"
+  },
+  {
     "id": 1,
-    "title": "🎮 GameSpecsHub Launch!",
+    "title": "ð® GameSpecsHub Launch!",
     "date": "2025-06-20",
-    "tags": ["announcement", "launch"],
+    "tags": [
+      "announcement",
+      "launch"
+    ],
     "content": "We're officially live! GameSpecsHub is your new home for game specs, news, and more.\n\n## What's New?\n\n- **Game Specifications Database**: Find detailed specs for any game\n- **Performance Benchmarks**: Real-world testing results\n- **Community Reviews**: User-generated content and ratings\n\nStay tuned for more updates!"
   },
   {
     "id": 2,
-    "title": "🔥 Top Gaming GPUs in 2025",
+    "title": "ð¥ Top Gaming GPUs in 2025",
     "date": "2025-06-19",
-    "tags": ["hardware", "gpu", "benchmarks"],
+    "tags": [
+      "hardware",
+      "gpu",
+      "benchmarks"
+    ],
     "content": "We review the latest high-end graphics cards and how they perform across AAA titles.\n\n### Top Performers:\n\n1. **RTX 4090** - Still the king\n2. **RTX 4080** - Best value for money\n3. **RX 7900 XTX** - AMD's flagship\n\n*Benchmarks coming soon!*"
   },
   {
     "id": 3,
-    "title": "👾 Why Indie Games Are Winning",
+    "title": "ð¾ Why Indie Games Are Winning",
     "date": "2025-06-18",
-    "tags": ["indie", "gaming", "trends"],
+    "tags": [
+      "indie",
+      "gaming",
+      "trends"
+    ],
     "content": "Indie titles are taking over with unique storytelling and fresh mechanics.\n\n## The Rise of Indie Gaming\n\nIndie developers are pushing boundaries and creating experiences that AAA studios often can't match. From **Hollow Knight** to **Celeste**, these games prove that passion beats budget.\n\n### What Makes Indie Games Special?\n\n- **Innovation**: Risk-taking gameplay mechanics\n- **Artistic Vision**: Uncompromised creative direction\n- **Community Focus**: Direct developer-player interaction"
   }
 ]
